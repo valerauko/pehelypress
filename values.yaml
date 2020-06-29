@@ -19,8 +19,10 @@ image:
   tag: "5.4.2-php7.4-fpm-alpine"
 
 php: {}
-  ## Example:
-  # upload_max_filesize: "25M"
+  ## Example (to set upload limit to the hardcoded nginx limit of 20mb)
+  # file_uploads: "On"
+  # upload_max_filesize: "20M"
+  # post_max_size: "20M"
 
 imagePullSecrets: []
 nameOverride: ""
