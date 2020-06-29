@@ -5,10 +5,12 @@
 replicaCount: 1
 
 database:
-  ## Existing secret for database password. Must have PASSWORD key.
+  ## Existing secret for database credentials. Must have all the keys:
+  ## USERNAME, DATABASE, HOSTNAME, PASSWORD.
   # existingSecret: "wordpress-db-creds"
   username: "wordpress"
   database: "wordpress"
+  password: ""
   hostname: "mariadb.default.svc.cluster.local"
 
 image:

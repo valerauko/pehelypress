@@ -36,11 +36,20 @@ spec:
               protocol: TCP
           env:
             - name: WORDPRESS_DB_HOST
-              value: {{ .Values.database.hostname }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "pehelypress.databaseSecret" . }}
+                  key: HOSTNAME
             - name: WORDPRESS_DB_NAME
-              value: {{ .Values.database.database }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "pehelypress.databaseSecret" . }}
+                  key: DATABASE
             - name: WORDPRESS_DB_USER
-              value: {{ .Values.database.username }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "pehelypress.databaseSecret" . }}
+                  key: USERNAME
             - name: WORDPRESS_DB_PASSWORD
               valueFrom:
                 secretKeyRef:
