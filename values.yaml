@@ -16,7 +16,7 @@ database:
 image:
   repository: wordpress
   pullPolicy: IfNotPresent
-  tag: "5.4.2-php7.4-apache"
+  tag: "5.4.2-php7.4-fpm-alpine"
 
 imagePullSecrets: []
 nameOverride: ""

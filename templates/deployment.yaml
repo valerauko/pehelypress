@@ -25,16 +25,48 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
+        - name: "{{ .Chart.Name }}-nginx"
+          image: nginx:alpine
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - mountPath: /pehely
+              name: wordpress-data
+              subPath: wordpress
+            - name: nginx-config-volume
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+          ports:
+            - name: http
+              containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /wp-login.php
+              port: http
+            failureThreshold: 6
+            initialDelaySeconds: 30
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /wp-login.php
+              port: http
+            failureThreshold: 6
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http
-              containerPort: 80
-              protocol: TCP
+            - name: fpm
+              containerPort: 9000
           env:
+            - name: WORDPRESS_DEBUG
+              value: "1"
             - name: WORDPRESS_DB_HOST
               valueFrom:
                 secretKeyRef:
@@ -55,21 +87,16 @@ spec:
                 secretKeyRef:
                   name: {{ include "pehelypress.databaseSecret" . }}
                   key: PASSWORD
-          livenessProbe:
-            httpGet:
-              path: /wp-login.php
-              port: http
-          readinessProbe:
-            httpGet:
-              path: /wp-login.php
-              port: http
           volumeMounts:
-            - mountPath: /var/www/html
+            - mountPath: /pehely
               name: wordpress-data
               subPath: wordpress
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
+        - name: nginx-config-volume
+          configMap:
+            name: "{{ template "pehelypress.fullname" . }}-nginx-config"
         - name: wordpress-data
           {{- if .Values.persistence.enabled }}
           persistentVolumeClaim:

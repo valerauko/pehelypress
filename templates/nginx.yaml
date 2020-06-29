@@ -1,0 +1,46 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: "{{ template "pehelypress.fullname" . }}-nginx-config"
+  labels:
+    {{- include "pehelypress.labels" . | nindent 4 }}
+data:
+  nginx.conf: |
+    events {
+    }
+    http {
+      include /etc/nginx/mime.types;
+
+      server {
+        listen 80 default_server;
+        listen [::]:80 default_server;
+
+        # Set nginx to serve files from the shared volume!
+        root /pehely;
+        server_name _;
+
+        index index.php;
+
+        client_max_body_size 20M;
+
+        location = /favicon.ico { log_not_found off; access_log off; }
+        location = /robots.txt  { log_not_found off; access_log off; }
+
+        location / {
+          try_files $uri $uri/ /index.php?$args;
+        }
+
+        location ~ \.(js|css|png|jpg|jpeg|gif)$ {
+          try_files $uri =404;
+          log_not_found off;
+        }
+
+        location ~ \.php$ {
+          include fastcgi_params;
+          fastcgi_index index.php;
+          fastcgi_param REQUEST_METHOD $request_method;
+          fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+          fastcgi_pass 127.0.0.1:9000;
+        }
+      }
+    }
