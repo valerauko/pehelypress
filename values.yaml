@@ -18,8 +18,9 @@ image:
   pullPolicy: IfNotPresent
   tag: "5.4.2-php7.4-fpm-alpine"
 
-php:
-  upload_max_filesize: "25M"
+php: {}
+  ## Example:
+  # upload_max_filesize: "25M"
 
 imagePullSecrets: []
 nameOverride: ""
