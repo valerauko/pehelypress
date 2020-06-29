@@ -14,7 +14,6 @@ database:
 image:
   repository: wordpress
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
   tag: "5.4.2-php7.4-apache"
 
 imagePullSecrets: []
@@ -81,7 +80,7 @@ persistence:
   ##   GKE, AWS & OpenStack)
   ##
   # storageClass: "-"
-  accessMode: ReadWriteMany
+  accessMode: ReadWriteOnce
   size: 10Gi
   ## If set uses the specified claim.
   # existingClaim: ""
