@@ -96,8 +96,8 @@ spec:
               name: wordpress-data
               subPath: wordpress
             - name: php-config-volume
-              mountPath: /usr/local/etc/php/conf.d/pehely.conf
-              subPath: pehely.conf
+              mountPath: /usr/local/etc/php/conf.d/pehely.ini
+              subPath: pehely.ini
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
