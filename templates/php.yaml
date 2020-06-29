@@ -8,6 +8,6 @@ data:
   pehely.conf: |-
     {{- if .Values.php }}
     {{- range $key, $value := .Values.php }}
-    {{ $key }} = {{ $value }}
+    {{ $key }}={{ $value }}
     {{- end }}
     {{- end }}
