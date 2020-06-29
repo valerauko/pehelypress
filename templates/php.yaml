@@ -5,7 +5,7 @@ metadata:
   labels:
     {{- include "pehelypress.labels" . | nindent 4 }}
 data:
-  pehely.conf: |-
+  pehely.ini: |-
     {{- if .Values.php }}
     {{- range $key, $value := .Values.php }}
     {{ $key }}={{ $value }}
