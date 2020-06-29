@@ -37,6 +37,18 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
+          env:
+            - name: WORDPRESS_DB_HOST
+              value: {{ .Values.database.hostname }}
+            - name: WORDPRESS_DB_NAME
+              value: {{ .Values.database.database }}
+            - name: WORDPRESS_DB_USER
+              value: {{ .Values.database.username }}
+            - name: WORDPRESS_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "pehelypress.databaseSecret" . }}
+                  key: PASSWORD
           livenessProbe:
             httpGet:
               path: /

@@ -54,10 +54,6 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "pehelypress.serviceAccountName" -}}
-{{- if .Values.serviceAccount.create }}
-{{- default (include "pehelypress.fullname" .) .Values.serviceAccount.name }}
-{{- else }}
-{{- default "default" .Values.serviceAccount.name }}
-{{- end }}
+{{- define "pehelypress.databaseSecret" -}}
+{{- default (printf "%s-database" (include "pehelypress.fullname" .)) .Values.database.existingSecret }}
 {{- end }}

@@ -4,6 +4,13 @@
 
 replicaCount: 1
 
+database:
+  ## Existing secret for database password. Must have PASSWORD key.
+  # existingSecret: "wordpress-db-creds"
+  username: "wordpress"
+  database: "wordpress"
+  hostname: "mariadb.default.svc.cluster.local"
+
 image:
   repository: wordpress
   pullPolicy: IfNotPresent
