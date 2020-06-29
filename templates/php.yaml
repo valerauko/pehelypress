@@ -1,0 +1,13 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: "{{ template "pehelypress.fullname" . }}-php-config"
+  labels:
+    {{- include "pehelypress.labels" . | nindent 4 }}
+data:
+  pehely.conf: |-
+    {{- if .Values.php }}
+    {{- range $key, $value := .Values.php }}
+    {{ $key }} = {{ $value }}
+    {{- end }}
+    {{- end }}

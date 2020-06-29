@@ -18,6 +18,10 @@ spec:
       labels:
         {{- include "pehelypress.selectorLabels" . | nindent 8 }}
     spec:
+      hostAliases:
+        - ip: "127.0.0.1"
+          hostnames:
+            - "status.localhost"
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -91,9 +95,15 @@ spec:
             - mountPath: /pehely
               name: wordpress-data
               subPath: wordpress
+            - name: php-config-volume
+              mountPath: /usr/local/etc/php/conf.d/pehely.conf
+              subPath: pehely.conf
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       volumes:
+        - name: php-config-volume
+          configMap:
+            name: "{{ template "pehelypress.fullname" . }}-php-config"
         - name: nginx-config-volume
           configMap:
             name: "{{ template "pehelypress.fullname" . }}-nginx-config"
