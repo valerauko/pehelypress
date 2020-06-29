@@ -33,7 +33,7 @@ spec:
           image: nginx:alpine
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           volumeMounts:
-            - mountPath: /pehely
+            - mountPath: /var/www/html
               name: wordpress-data
               subPath: wordpress
             - name: nginx-config-volume
@@ -92,7 +92,7 @@ spec:
                   name: {{ include "pehelypress.databaseSecret" . }}
                   key: PASSWORD
           volumeMounts:
-            - mountPath: /pehely
+            - mountPath: /var/www/html
               name: wordpress-data
               subPath: wordpress
             - name: php-config-volume

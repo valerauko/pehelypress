@@ -16,7 +16,7 @@ data:
         listen [::]:80 default_server;
 
         # Set nginx to serve files from the shared volume!
-        root /pehely;
+        root /var/www/html;
         server_name _;
 
         index index.php;
