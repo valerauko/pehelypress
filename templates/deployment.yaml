@@ -54,8 +54,20 @@ spec:
             httpGet:
               path: /wp-login.php
               port: http
+          volumeMounts:
+            - mountPath: /var/www/html
+              name: wordpress-data
+              subPath: wordpress
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+      volumes:
+        - name: wordpress-data
+          {{- if .Values.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.persistence.existingClaim | default (include "pehelypress.fullname" .) }}
+          {{- else }}
+          emptyDir: {}
+          {{ end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
