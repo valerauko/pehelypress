@@ -57,3 +57,13 @@ Create the name of the service account to use
 {{- define "pehelypress.databaseSecret" -}}
 {{- default (printf "%s-database" (include "pehelypress.fullname" .)) .Values.database.existingSecret }}
 {{- end }}
+
+{{- define "pehelypress.storageClass" -}}
+{{- if .Values.persistence.storageClass -}}
+    {{- if (eq "-" .Values.persistence.storageClass) -}}
+        {{- printf "storageClassName: \"\"" -}}
+    {{- else }}
+        {{- printf "storageClassName: %s" .Values.persistence.storageClass -}}
+    {{- end -}}
+{{- end -}}
+{{- end -}}
