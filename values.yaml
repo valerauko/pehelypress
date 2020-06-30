@@ -18,6 +18,9 @@ image:
   pullPolicy: IfNotPresent
   tag: "5.4.2-php7.4-fpm-alpine"
 
+## WORDPRESS_DEBUG flag
+debug: false
+
 php: {}
   ## Example (to set upload limit to the hardcoded nginx limit of 20mb)
   # file_uploads: "On"

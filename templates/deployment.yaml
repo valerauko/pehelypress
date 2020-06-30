@@ -70,7 +70,7 @@ spec:
               containerPort: 9000
           env:
             - name: WORDPRESS_DEBUG
-              value: "1"
+              value: {{ ternary "1" "0" .Values.debug | quote }}
             - name: WORDPRESS_DB_HOST
               valueFrom:
                 secretKeyRef:
