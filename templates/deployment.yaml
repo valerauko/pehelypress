@@ -69,8 +69,10 @@ spec:
             - name: fpm
               containerPort: 9000
           env:
+            {{- if .Values.debug }}
             - name: WORDPRESS_DEBUG
-              value: {{ ternary "1" "0" .Values.debug | quote }}
+              value: "1"
+            {{- end }}
             - name: WORDPRESS_DB_HOST
               valueFrom:
                 secretKeyRef:
