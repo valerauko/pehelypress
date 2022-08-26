@@ -1,3 +1,5 @@
+![image](https://user-images.githubusercontent.com/6322484/186876085-f489ec52-b9ec-402e-bf49-8895784ff833.png)
+
 # Pehelypress
 
 >pehely (Hungarian, n): (down) feather
@@ -19,3 +21,7 @@ Bitnami's [Wordpress chart](https://github.com/bitnami/charts/tree/master/bitnam
 This chart does nothing so fancy and uses the official [Wordpress](https://hub.docker.com/_/wordpress/) and [Nginx](https://hub.docker.com/_/nginx/) images.
 
 Thus the name: featherweight.
+
+## Credit
+
+Cover photo by <a href="https://unsplash.com/@evieshaffer?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Evie S.</a> on <a href="https://unsplash.com/s/photos/feather?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>.
