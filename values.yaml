@@ -16,7 +16,7 @@ database:
 image:
   repository: wordpress
   pullPolicy: IfNotPresent
-  tag: "6.3.1-php8.2-fpm-alpine"
+  tag: "6.7.0-php8.3-fpm-alpine"
 
 ## WORDPRESS_DEBUG flag
 debug: false
