@@ -54,6 +54,9 @@ spec:
             httpGet:
               path: /wp-login.php
               port: http
+              httpHeaders:
+                - name: X-Forwarded-Proto
+                  value: https
             failureThreshold: 6
             initialDelaySeconds: 30
             periodSeconds: 10
